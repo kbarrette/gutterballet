@@ -73,7 +73,7 @@ def update_signs(filename):
 
 def cleanup(filename):
     global sign_state
-    del sign_state[filename]
+    sign_state.pop(filename, None)
 
 def init():
     global sign_state
