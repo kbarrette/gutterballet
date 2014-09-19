@@ -27,7 +27,7 @@ endfunction
 
 " Place a dummy sign to ensure the sign column is always visible
 function! s:GutterBalletInsertDummySign()
-  exec 'sign place 9999 line=1 name=gutterballet_dummy buffer=' . bufnr('')
+  exec 'sign place 9999 line=1 name=gutterballet_dummy file=' . expand('%:p')
 endfunction
 
 " Clean up

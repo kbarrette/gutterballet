@@ -27,8 +27,8 @@ def _get_diff(filename):
 
     return diff
 
-def _set_sign(line_number, sign_name, buffer_number):
-    vimcmd = "sign place %(line_number)s line=%(line_number)s name=%(sign_name)s buffer=%(buffer_number)s" % locals()
+def _set_sign(line_number, sign_name, filename):
+    vimcmd = "sign place %(line_number)s line=%(line_number)s name=%(sign_name)s file=%(filename)s" % locals()
     vim.command(vimcmd)
 
 def _remove_sign(line_number):
@@ -45,7 +45,6 @@ def update_signs(filename):
     Update signs for the given filename
     """
     global sign_state
-    buffer_number = vim.current.buffer.number
 
     # Get diff
     diff = _get_diff(filename)
@@ -63,7 +62,7 @@ def update_signs(filename):
     # Update signs
     for line_number in new_file_state:
         if line_number not in sign_state[filename] or sign_state[filename][line_number] != new_file_state[line_number]:
-            _set_sign(line_number, new_file_state[line_number], buffer_number)
+            _set_sign(line_number, new_file_state[line_number], filename)
 
     # Delete any signs no longer in use
     for line_number in sign_state[filename]:
