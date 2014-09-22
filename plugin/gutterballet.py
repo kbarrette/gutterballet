@@ -19,7 +19,7 @@ def _get_diff(filename):
     gitdir = os.path.dirname(os.path.realpath(filename))
     cmd = "git --no-pager diff --word-diff=porcelain --unified=0 %(filename)s" % locals()
 
-    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True, cwd=gitdir)
+    p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, cwd=gitdir)
     diff = p.communicate()[0]
 
     if p.returncode != 0:
