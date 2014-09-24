@@ -24,15 +24,18 @@ function! s:set(name, value)
 endfunction
 
 " Highlight defaults
-call s:set('g:gutterballet_highlight_add', 'DiffAdd')
-call s:set('g:gutterballet_highlight_delete', 'DiffDelete')
-call s:set('g:gutterballet_highlight_change', 'DiffChange')
+call s:set('g:gutterballet_add_highlight', 'DiffAdd')
+call s:set('g:gutterballet_delete_highlight', 'DiffDelete')
+call s:set('g:gutterballet_change_highlight', 'DiffChange')
+call s:set('g:gutterballet_add_text', '+')
+call s:set('g:gutterballet_delete_text', '-')
+call s:set('g:gutterballet_change_text', '~')
 
 " Define signs
 function! s:GutterBalletDefineSigns()
-  exec 'sign define gutterballet_add text=+ texthl=' . g:gutterballet_highlight_add
-  exec 'sign define gutterballet_delete text=- texthl=' . g:gutterballet_highlight_delete
-  exec 'sign define gutterballet_change text=~ texthl=' . g:gutterballet_highlight_change
+  exec 'sign define gutterballet_add text=' . g:gutterballet_change_text . ' texthl=' . g:gutterballet_add_highlight
+  exec 'sign define gutterballet_delete text=' . g:gutterballet_delete_text . ' texthl=' . g:gutterballet_delete_highlight
+  exec 'sign define gutterballet_change text=' . g:gutterballet_change_text . ' texthl=' . g:gutterballet_change_highlight
   sign define gutterballet_dummy
 endfunction
 
