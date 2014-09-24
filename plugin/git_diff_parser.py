@@ -40,7 +40,7 @@ def _extract_hunk_stats(hunk_stats):
 
     # If only deleted
     elif original_count > 0 and new_count == 0:
-        delete_lines = range(original_start, original_start + original_count)
+        delete_lines = range(original_start, original_start + 1)
 
     # If perfectly modified
     elif original_count > 0 and new_count > 0 and original_count == new_count:

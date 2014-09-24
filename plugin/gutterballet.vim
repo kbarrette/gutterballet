@@ -58,6 +58,9 @@ function! s:GutterBalletUpdateSigns(file)
   exec 'python gutterballet.update_signs("' . a:file . '")'
 endfunction
 
+function! s:GutterBalletDebugClearCache()
+  exec 'python gutterballet._debug_clear_cache()'
+endfunction
 
 function s:GutterBalletInit()
   call s:GutterBalletDefineSigns()
@@ -65,4 +68,5 @@ function s:GutterBalletInit()
 endfunction
 
 call s:GutterBalletInit()
-command! -nargs=0 GutterBalletUpdateSigns call s:GutterBalletUpdateSigns()
+command! -nargs=0 GutterBalletUpdateSigns call s:GutterBalletUpdateSigns(expand('%:p'))
+command! -nargs=0 GutterBalletDebugClearCache call s:GutterBalletDebugClearCache(expand('%:p'))

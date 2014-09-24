@@ -80,3 +80,7 @@ def init():
     global sign_state
     sign_state = defaultdict(dict)
 
+def _debug_clear_cache():
+    global sign_state
+    sign_state = defaultdict(dict)
+
