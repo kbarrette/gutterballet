@@ -30,9 +30,9 @@ call s:set('g:gutterballet_highlight_change', 'DiffChange')
 
 " Define signs
 function! s:GutterBalletDefineSigns()
-	exec 'sign define gutterballet_add text=+ texthl=' . g:gutterballet_highlight_add
-	exec 'sign define gutterballet_delete text=- texthl=' . g:gutterballet_highlight_delete
-	exec 'sign define gutterballet_change text=~ texthl=' . g:gutterballet_highlight_change
+  exec 'sign define gutterballet_add text=+ texthl=' . g:gutterballet_highlight_add
+  exec 'sign define gutterballet_delete text=- texthl=' . g:gutterballet_highlight_delete
+  exec 'sign define gutterballet_change text=~ texthl=' . g:gutterballet_highlight_change
   sign define gutterballet_dummy
 endfunction
 
@@ -47,12 +47,12 @@ endfunction
 
 " Clean up
 function! s:GutterBalletCleanup(file)
-	exec 'python gutterballet.cleanup("' . a:file . '")'
+  exec 'python gutterballet.cleanup("' . a:file . '")'
 endfunction
 
 " Update signs
 function! s:GutterBalletUpdateSigns(file)
-	exec 'python gutterballet.update_signs("' . a:file . '")'
+  exec 'python gutterballet.update_signs("' . a:file . '")'
 endfunction
 
 
