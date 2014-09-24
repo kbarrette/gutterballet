@@ -52,7 +52,7 @@ def update_signs(filename):
         add, delete, change = git_diff_parser.parse(diff)
 
         # Compute desired signs
-        new_file_state = {}
+        new_file_state = {9999: 'gutterballet_dummy'}
         for line_number in add:
             new_file_state[line_number] = "gutterballet_add"
         for line_number in delete:

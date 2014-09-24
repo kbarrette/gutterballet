@@ -45,11 +45,6 @@ function! s:GutterBalletSetAutoCommands()
   augroup END
 endfunction
 
-" Place a dummy sign to ensure the sign column is always visible
-function! s:GutterBalletInsertDummySign()
-  exec 'sign place 9999 line=1 name=gutterballet_dummy file=' . expand('%:p')
-endfunction
-
 " Clean up
 function! s:GutterBalletCleanup(file)
 	exec 'python gutterballet.cleanup("' . a:file . '")'
@@ -57,10 +52,6 @@ endfunction
 
 " Update signs
 function! s:GutterBalletUpdateSigns(file)
-	if !exists('b:gutterballet_dummy_sign_created')
-	  call s:GutterBalletInsertDummySign()
-	  let b:gutterballet_dummy_sign_created = 1
-  endif
 	exec 'python gutterballet.update_signs("' . a:file . '")'
 endfunction
 
