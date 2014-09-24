@@ -6,7 +6,6 @@
 if exists('g:gutterballet') || !has('python')
   finish
 endif
-
 let g:gutterballet = 1
 
 " Load Python module
@@ -23,6 +22,15 @@ function! s:GutterBalletDefineSigns()
 	sign define gutterballet_delete text=- texthl=DiffDelete
 	sign define gutterballet_change text=~ texthl=DiffChange
   sign define gutterballet_dummy
+endfunction
+
+" Set signs on BufWrite, etc
+function! s:GutterBalletSetAutoCommands()
+  augroup GutterBallet
+    autocmd!
+    autocmd BufRead,BufWritePost,FileChangedShellPost * call <SID>GutterBalletUpdateSigns()
+    autocmd BufDelete * call <SID>GutterBalletCleanup()
+  augroup END
 endfunction
 
 " Place a dummy sign to ensure the sign column is always visible
@@ -44,12 +52,11 @@ function! s:GutterBalletUpdateSigns()
 	exec 'python gutterballet.update_signs("' . expand('%:p') . '")'
 endfunction
 
-" Set signs on BufWrite
-augroup GutterBallet
-  autocmd!
-  autocmd BufRead,BufWritePost,FileChangedShellPost * call <SID>GutterBalletUpdateSigns()
-  autocmd BufDelete * call <SID>GutterBalletCleanup()
-augroup END
 
-call s:GutterBalletDefineSigns()
+function s:GutterBalletInit()
+  call s:GutterBalletSetAutoCommands()
+  call s:GutterBalletDefineSigns()
+endfunction
+
+call s:GutterBalletInit()
 command! -nargs=0 GutterBalletUpdateSigns call s:GutterBalletUpdateSigns()
