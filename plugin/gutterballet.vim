@@ -40,8 +40,8 @@ endfunction
 function! s:GutterBalletSetAutoCommands()
   augroup GutterBallet
     autocmd!
-    autocmd BufRead,BufWritePost,FileChangedShellPost * call <SID>GutterBalletUpdateSigns()
-    autocmd BufDelete * call <SID>GutterBalletCleanup()
+    autocmd BufRead,BufWritePost,FileChangedShellPost * call <SID>GutterBalletUpdateSigns(expand('<afile>:p'))
+    autocmd BufDelete * call <SID>GutterBalletCleanup('<afile>:p')
   augroup END
 endfunction
 
@@ -51,17 +51,17 @@ function! s:GutterBalletInsertDummySign()
 endfunction
 
 " Clean up
-function! s:GutterBalletCleanup()
-	exec 'python gutterballet.cleanup("' . expand('%:p') . '")'
+function! s:GutterBalletCleanup(file)
+	exec 'python gutterballet.cleanup("' . a:file . '")'
 endfunction
 
 " Update signs
-function! s:GutterBalletUpdateSigns()
+function! s:GutterBalletUpdateSigns(file)
 	if !exists('b:gutterballet_dummy_sign_created')
 	  call s:GutterBalletInsertDummySign()
 	  let b:gutterballet_dummy_sign_created = 1
   endif
-	exec 'python gutterballet.update_signs("' . expand('%:p') . '")'
+	exec 'python gutterballet.update_signs("' . a:file . '")'
 endfunction
 
 
