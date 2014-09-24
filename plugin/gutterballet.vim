@@ -16,11 +16,23 @@ import gutterballet
 gutterballet.init()
 EOF
 
+" Set a variable unless it exists
+function! s:set(name, value)
+  if !exists(a:name)
+    exec 'let' a:name '=' string(a:value)
+  endif
+endfunction
+
+" Highlight defaults
+call s:set('g:gutterballet_highlight_add', 'DiffAdd')
+call s:set('g:gutterballet_highlight_delete', 'DiffDelete')
+call s:set('g:gutterballet_highlight_change', 'DiffChange')
+
 " Define signs
 function! s:GutterBalletDefineSigns()
-	sign define gutterballet_add text=+ texthl=DiffAdd
-	sign define gutterballet_delete text=- texthl=DiffDelete
-	sign define gutterballet_change text=~ texthl=DiffChange
+	exec 'sign define gutterballet_add text=+ texthl=' . g:gutterballet_highlight_add
+	exec 'sign define gutterballet_delete text=- texthl=' . g:gutterballet_highlight_delete
+	exec 'sign define gutterballet_change text=~ texthl=' . g:gutterballet_highlight_change
   sign define gutterballet_dummy
 endfunction
 
