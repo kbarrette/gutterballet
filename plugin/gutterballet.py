@@ -23,7 +23,7 @@ def _get_diff(filename):
     diff = p.communicate()[0]
 
     if p.returncode != 0:
-        return ""
+        return None
 
     return diff
 
@@ -48,28 +48,29 @@ def update_signs(filename):
 
     # Get diff
     diff = _get_diff(filename)
-    add, delete, change = git_diff_parser.parse(diff)
+    if diff is not None:
+        add, delete, change = git_diff_parser.parse(diff)
 
-    # Compute desired signs
-    new_file_state = {}
-    for line_number in add:
-        new_file_state[line_number] = "gutterballet_add"
-    for line_number in delete:
-        new_file_state[line_number] = "gutterballet_delete"
-    for line_number in change:
-        new_file_state[line_number] = "gutterballet_change"
+        # Compute desired signs
+        new_file_state = {}
+        for line_number in add:
+            new_file_state[line_number] = "gutterballet_add"
+        for line_number in delete:
+            new_file_state[line_number] = "gutterballet_delete"
+        for line_number in change:
+            new_file_state[line_number] = "gutterballet_change"
 
-    # Update signs
-    for line_number in new_file_state:
-        if line_number not in sign_state[filename] or sign_state[filename][line_number] != new_file_state[line_number]:
-            _set_sign(line_number, new_file_state[line_number], filename)
+        # Update signs
+        for line_number in new_file_state:
+            if line_number not in sign_state[filename] or sign_state[filename][line_number] != new_file_state[line_number]:
+                _set_sign(line_number, new_file_state[line_number], filename)
 
-    # Delete any signs no longer in use
-    for line_number in sign_state[filename]:
-        if line_number not in new_file_state:
-            _remove_sign(line_number)
+        # Delete any signs no longer in use
+        for line_number in sign_state[filename]:
+            if line_number not in new_file_state:
+                _remove_sign(line_number)
 
-    sign_state[filename] = new_file_state
+        sign_state[filename] = new_file_state
 
 def cleanup(filename):
     global sign_state
