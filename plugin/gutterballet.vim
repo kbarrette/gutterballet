@@ -57,8 +57,8 @@ endfunction
 
 
 function s:GutterBalletInit()
-  call s:GutterBalletSetAutoCommands()
   call s:GutterBalletDefineSigns()
+  call s:GutterBalletSetAutoCommands()
 endfunction
 
 call s:GutterBalletInit()
