@@ -27,6 +27,7 @@ def parse(diff):
                     offset += 1
                 elif line.is_removed:
                     removed.add(line.source_line_no + offset)
+                    offset -= 1
 
     diff_stream.close
 
