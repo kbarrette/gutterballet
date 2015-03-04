@@ -1,5 +1,5 @@
 """
-Vim gutterballet - show git add/delete/change signs in the gutter
+Vim gutterballet - show diff add/delete/change signs in the gutter
 
 https://github.com/kbarrette/gutterballet
 """
@@ -8,7 +8,7 @@ import os
 import subprocess
 from collections import defaultdict
 
-import git_diff_parser
+import diff_parser
 
 try:
     import vim
@@ -16,10 +16,11 @@ except ImportError:
     pass
 
 def _get_diff(filename):
-    gitdir = os.path.dirname(os.path.realpath(filename))
-    cmd = "git --no-pager diff %(filename)s" % locals()
+    file_dir = os.path.dirname(os.path.realpath(filename))
+    diff_command = vim.eval("g:gutterballet_diff_command")
+    cmd = "%(diff_command)s %(filename)s" % locals()
 
-    p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, cwd=gitdir)
+    p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, cwd=file_dir)
     diff = p.communicate()[0]
 
     if p.returncode != 0:
@@ -49,7 +50,7 @@ def update_signs(filename):
     # Get diff
     diff = _get_diff(filename)
     if diff is not None:
-        add, delete, change = git_diff_parser.parse(diff)
+        add, delete, change = diff_parser.parse(diff)
 
         # Compute desired signs
         new_file_state = {9999: 'gutterballet_dummy'}

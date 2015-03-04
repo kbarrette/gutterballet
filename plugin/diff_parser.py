@@ -1,10 +1,10 @@
 """
-Parse a git diff and return a tuple of (added_line_numbers, removed_line_numbers, changed_line_numbers)
+Parse a diff and return a tuple of (added_line_numbers, removed_line_numbers, changed_line_numbers)
 
 Works with a single file at a time
 
 Usage:
-    git_diff_parser.parse(diff)
+    diff_parser.parse(diff)
     -> ([added], [removed], [changed])
 """
 

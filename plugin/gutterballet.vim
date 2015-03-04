@@ -1,4 +1,4 @@
-" Vim gutterballet - show git add/delete/change signs in the gutter
+" Vim gutterballet - show diff add/delete/change signs in the gutter
 "
 " https://github.com/kbarrette/gutterballet
 "
@@ -30,6 +30,7 @@ call s:set('g:gutterballet_change_highlight', 'DiffChange')
 call s:set('g:gutterballet_add_text', '+')
 call s:set('g:gutterballet_delete_text', '-')
 call s:set('g:gutterballet_change_text', '~')
+call s:set('g:gutterballet_diff_command', 'git --no-pager diff')
 
 " Define signs
 function! s:GutterBalletDefineSigns()
