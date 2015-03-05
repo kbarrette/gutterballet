@@ -34,7 +34,7 @@ call s:set('g:gutterballet_diff_command', 'git --no-pager diff')
 
 " Define signs
 function! s:GutterBalletDefineSigns()
-  exec 'sign define gutterballet_add text=' . g:gutterballet_change_text . ' texthl=' . g:gutterballet_add_highlight
+  exec 'sign define gutterballet_add text=' . g:gutterballet_add_text . ' texthl=' . g:gutterballet_add_highlight
   exec 'sign define gutterballet_delete text=' . g:gutterballet_delete_text . ' texthl=' . g:gutterballet_delete_highlight
   exec 'sign define gutterballet_change text=' . g:gutterballet_change_text . ' texthl=' . g:gutterballet_change_highlight
   sign define gutterballet_dummy
