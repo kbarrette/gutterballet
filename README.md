@@ -1,5 +1,8 @@
 gutterballet
 ============
+***
+NOTE: The code in this repo mostly works, but is no longer under development - [vim-gitgutter](https://github.com/airblade/vim-gitgutter) now supports async diffing and is much more actively maintained.
+***
 
 This plugin uses Matias Bordese's excellent diff parsing library: [python-unidiff](https://github.com/matiasb/python-unidiff)
 
